@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <style>
+        table th:hover {
+            cursor: pointer;
+        }
+
+        .arrow-down:after,
+        .arrow-up:after {
+            content: ' ';
+            position: relative;
+            left: 2px;
+            border: 8px solid transparent;
+        }
+
+        .arrow-down:after {
+            top: 10px;
+            border-top-color: black;
+        }
+
+        .arrow-up:after {
+            bottom: 15px;
+            border-bottom-color: black;
+        }
+
+        .arrow-down,
+        .arrow-up {
+            padding-right: 10px;
+        }
+    </style>
+    <script src='angular.js'></script>
+</head>
+
+<body ng-app="appname">
+    <div ng-controller="myCtrl" class="mt-3">
+
+        <div ng-controller="myController" class="container">
+            <label>year:</label>
+            <select ng-model="selectedyear.year">
+                <option selected value="">year</option>
+                <option ng-repeat="x in year">{{x}}</option>
+
+            </select>
+            <label>month:</label>
+            <select ng-model="selectedmonth.month">
+                <option selected value="">month</option>
+                <option ng-repeat="x in month">{{x}}</option>
+            </select>
+            <label>day:</label>
+            <select ng-model="selectedday.day">
+                <option selected value="">day</option>
+                <option ng-repeat="x in days">{{x}}</option>
+            </select>
+            <input type='text' placeholder="search firstName" ng-model="searchtext.firstName" />
+            <input type='text' placeholder="search lastName" ng-model="searchtext.lastName" />
+            <br>
+            <br>
+            <table class="table table-bordered" style="color: white">
+                <tr style="background-color: rgb(76, 74, 71)">
+                    <th ng-click='sortColumn("firstName")' ng-class='sortClass("firstName")'>
+                        firstName
+                    </th>
+                    <th ng-click='sortColumn("lastName")' ng-class='sortClass("lastName")'>
+                        lastName
+                    </th>
+                    <th ng-click='sortColumn("gender")' ng-class='sortClass("gender")'>
+                        gender
+                    </th>
+                    <th ng-click='sortColumn("year")' ng-class='sortClass("year")'>
+                        Date
+                    </th>
+                </tr>
+                <tr ng-repeat='x in results|orderBy:column:reverse |  filter:searchtext |filter:selectedyear|filter:selectedday| filter:selectedmonth|filter:generate'
+                    ng-style="{'background-color': '{{x.color}}'}">
+
+                    <td>{{x.firstName}}</td>
+                    <td>{{x.lastName}}</td>
+                    <td>{{x.gender}}</td>
+                    <td>{{x.month+'/'+x.day+'/'+x.year}}</td>
+
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</body>
+<script src='app.js'></script>
+<script src='problem4.js'></script>
+
+</html>
